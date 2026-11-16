@@ -149,7 +149,7 @@ footer nav{margin-bottom:.5rem;display:flex;gap:1.25rem;justify-content:center;f
 <script>
 // ===== CONFIGURACIÓN =====
 // Pega aquí la URL del webhook de Make (Webhooks > Custom webhook).
-const ENDPOINT = 'PEGA_AQUI_LA_URL_DEL_WEBHOOK_DE_MAKE';
+const ENDPOINT = 'https://hook.eu1.make.com/dsenpyxfbhfg4s0ymsrvamzjmfmoibpp';
 // Tamaño máximo en MB. Comprueba el límite de tu plan de Make antes de subirlo.
 const MAX_MB = 5;
 // =========================
@@ -209,7 +209,7 @@ form.addEventListener('submit', async e => {
     const res = await fetch(ENDPOINT, { method: 'POST', body: data });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     form.reset(); fileName.textContent = '';
-    show('Factura enviada, ' + nombre + '. Te contactaremos en el correo que nos has indicado.', 'ok');
+    show('Factura enviada, ' + nombre + '. Te contactaremos en el correo o teléfono que nos has indicado.', 'ok');
   } catch (err) {
     show('No hemos podido enviar la factura. Inténtalo de nuevo en unos minutos.', 'err');
   } finally {
