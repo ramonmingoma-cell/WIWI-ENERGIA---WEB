@@ -1,0 +1,32 @@
+# Archivos ocultos del sistema operativo (macOS y Windows)
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editores de código e IDEs (VS Code, Sublime, JetBrains)
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Archivos temporales y registros (logs)
+*.log
+*.tmp
+*.temp
+
+# Variables de entorno y credenciales (por si conectas un servicio de envío más adelante)
+.env
+.env.local
+.env.*.local
+
+# Dependencias (en caso de usar herramientas de desarrollo web)
+node_modules/
+
+# Carpetas de pruebas locales con documentos de clientes (protección de datos)
+uploads/
+temp_pdfs/
+facturas_prueba/
