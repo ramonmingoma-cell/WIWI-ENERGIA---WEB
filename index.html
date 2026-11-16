@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WI WI Energía — Estudio de tu factura de luz y gas</title>
+<meta name="description" content="Sube tu factura de luz o gas en PDF y te enviamos ofertas de varias comercializadoras. Sin compromiso.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2384cc16'/%3E%3Ctext x='32' y='45' font-size='36' font-weight='700' text-anchor='middle' fill='white' font-family='Arial'%3EW%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --lime:#84cc16;
+  --green:#3f6212;
+  --green-hover:#365314;
+  --bg:#ffffff;
+  --text:#1c1c1c;
+  --muted:#525252;
+  --border:#e5e5e5;
+  --ok-bg:#f0fdf4;--ok-text:#14532d;--ok-border:#bbf7d0;
+  --err-bg:#fef2f2;--err-text:#991b1b;--err-border:#fecaca;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{color:var(--green)}
+:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+
+header{background:var(--lime);padding:1rem 1.5rem}
+.nav{max-width:960px;margin:0 auto}
+.brand{font-size:1.6rem;font-weight:800;letter-spacing:.02em;color:#fff;text-decoration:none;text-shadow:0 1px 0 rgba(0,0,0,.25),0 2px 4px rgba(0,0,0,.25)}
+
+main{max-width:960px;margin:0 auto;padding:3rem 1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+
+.info h1{font-size:2.3rem;line-height:1.15;font-weight:800;margin-bottom:1rem}
+.info>p{color:var(--muted);font-size:1.05rem;margin-bottom:1.75rem;max-width:34rem}
+.steps{list-style:none;display:flex;flex-direction:column;gap:1.15rem}
+.steps li{display:flex;gap:.85rem;align-items:flex-start}
+.num{background:var(--green);color:#fff;font-weight:700;font-size:.85rem;min-width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:.15rem}
+.steps strong{display:block;font-size:.98rem}
+.steps span.d{color:var(--muted);font-size:.9rem}
+
+.card{border:1px solid var(--border);border-radius:12px;padding:2rem;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.card h2{font-size:1.3rem;margin-bottom:.35rem}
+.sub{font-size:.9rem;color:var(--muted);margin-bottom:1.5rem}
+.fg{margin-bottom:1.2rem}
+label,.lbl{display:block;font-size:.88rem;font-weight:600;margin-bottom:.4rem}
+input[type=text],input[type=email],input[type=tel]{width:100%;padding:.65rem .85rem;border:1px solid #a3a3a3;border-radius:8px;font-size:1rem;font-family:inherit}
+input:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(132,204,22,.35)}
+
+.drop{display:block;border:2px dashed #a3a3a3;border-radius:10px;padding:1.75rem 1rem;text-align:center;cursor:pointer;font-weight:400;margin:0}
+.drop:hover,.drop.over,.drop:focus-within{border-color:var(--green);background:#f7fee7}
+.drop p{font-size:.92rem;color:var(--muted);margin-bottom:.35rem}
+.drop strong{color:var(--green)}
+.hint{font-size:.8rem;color:var(--muted)}
+.picked{margin-top:.75rem;font-size:.88rem;font-weight:600;color:var(--green);word-break:break-all}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.hp{position:absolute;left:-9999px}
+
+.consent{display:flex;align-items:flex-start;gap:.6rem;margin-bottom:1.25rem}
+.consent input{margin-top:.3rem;flex-shrink:0}
+.consent label{font-weight:400;font-size:.82rem;color:var(--muted);margin:0}
+
+button{width:100%;background:var(--green);color:#fff;border:none;border-radius:8px;padding:.85rem 1rem;font-size:1rem;font-weight:600;cursor:pointer;font-family:inherit}
+button:hover{background:var(--green-hover)}
+button:disabled{opacity:.6;cursor:wait}
+
+.msg{margin-top:1rem;padding:.85rem;border-radius:8px;font-size:.9rem;display:none}
+.msg.ok{display:block;background:var(--ok-bg);color:var(--ok-text);border:1px solid var(--ok-border)}
+.msg.err{display:block;background:var(--err-bg);color:var(--err-text);border:1px solid var(--err-border)}
+
+footer{text-align:center;padding:2rem 1.5rem;color:var(--muted);font-size:.85rem;border-top:1px solid var(--border);margin-top:2rem}
+footer nav{margin-bottom:.5rem;display:flex;gap:1.25rem;justify-content:center;flex-wrap:wrap}
+
+@media(max-width:768px){
+  main{grid-template-columns:1fr;gap:2rem;padding-top:2rem}
+  .info h1{font-size:1.85rem}
+  .card{padding:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav"><a href="#" class="brand">WI WI Energía</a></div>
+</header>
+
+<main>
+  <section class="info">
+    <h1>Analizamos tu factura y buscamos mejores condiciones</h1>
+    <p>Sube tu última factura de luz o gas. Revisamos tu potencia, tu consumo y tu tarifa, y pedimos ofertas a varias comercializadoras. Sin compromiso.</p>
+    <ol class="steps">
+      <li><span class="num">1</span><div><strong>Sube tu factura en PDF</strong><span class="d">Adjunta tu última factura eléctrica o de gas desde esta página.</span></div></li>
+      <li><span class="num">2</span><div><strong>Estudiamos tu caso</strong><span class="d">Revisamos tus datos de suministro y consultamos ofertas de varias comercializadoras.</span></div></li>
+      <li><span class="num">3</span><div><strong>Recibe tu propuesta</strong><span class="d">Te contactamos con las opciones encontradas para que decidas tú.</span></div></li>
+    </ol>
+  </section>
+
+  <section class="card">
+    <h2>Enviar factura</h2>
+    <p class="sub">Completa tus datos y adjunta el documento en PDF.</p>
+
+    <form id="form" novalidate>
+      <div class="fg">
+        <label for="nombre">Nombre o empresa *</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Ej. Laura García" autocomplete="name" required>
+      </div>
+      <div class="fg">
+        <label for="email">Correo electrónico *</label>
+        <input type="email" id="email" name="email" placeholder="tu@correo.com" autocomplete="email" required>
+      </div>
+      <div class="fg">
+        <label for="telefono">Teléfono de contacto (opcional)</label>
+        <input type="tel" id="telefono" name="telefono" placeholder="600 000 000" autocomplete="tel">
+      </div>
+
+      <!-- Campo trampa anti-spam: los usuarios no lo ven -->
+      <div class="hp" aria-hidden="true">
+        <label for="web">No rellenar</label>
+        <input type="text" id="web" name="web" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div class="fg">
+        <span class="lbl" id="fileLbl">Factura (solo PDF) *</span>
+        <label class="drop" id="drop" for="file">
+          <p><strong>Haz clic para seleccionar</strong> o arrastra tu archivo aquí</p>
+          <span class="hint">Formato PDF, máximo <span id="maxTxt"></span> MB</span>
+          <input class="sr" type="file" id="file" name="factura" accept="application/pdf,.pdf" aria-describedby="fileName">
+          <div class="picked" id="fileName" aria-live="polite"></div>
+        </label>
+      </div>
+
+      <div class="consent">
+        <input type="checkbox" id="priv" name="privacidad">
+        <label for="priv">He leído la <a href="privacidad.html" target="_blank" rel="noopener">política de privacidad</a> y autorizo el uso de mi factura y mis datos para estudiar mi suministro y solicitar ofertas a comercializadoras de energía, a las que se podrán comunicar estos datos con ese fin. *</label>
+      </div>
+
+      <button type="submit" id="btn">Enviar factura</button>
+      <div id="msg" class="msg" role="status" aria-live="polite"></div>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <nav>
+    <a href="aviso-legal.html">Aviso legal</a>
+    <a href="privacidad.html">Política de privacidad</a>
+  </nav>
+  &copy; 2026 WI WI Energía. Todos los derechos reservados.
+</footer>
+
+<script>
+// ===== CONFIGURACIÓN =====
+// Pega aquí la URL del webhook de Make (Webhooks > Custom webhook).
+const ENDPOINT = 'PEGA_AQUI_LA_URL_DEL_WEBHOOK_DE_MAKE';
+// Tamaño máximo en MB. Comprueba el límite de tu plan de Make antes de subirlo.
+const MAX_MB = 5;
+// =========================
+
+const $ = id => document.getElementById(id);
+const form = $('form'), file = $('file'), drop = $('drop'),
+      fileName = $('fileName'), msg = $('msg'), btn = $('btn');
+$('maxTxt').textContent = MAX_MB;
+
+function show(text, type){ msg.textContent = text; msg.className = 'msg ' + type; }
+function clearMsg(){ msg.className = 'msg'; msg.textContent = ''; }
+
+function checkFile(f){
+  if (!f) return 'Adjunta tu factura en formato PDF.';
+  const isPdf = f.type === 'application/pdf' || f.name.toLowerCase().endsWith('.pdf');
+  if (!isPdf) return 'El archivo debe ser un PDF.';
+  if (f.size > MAX_MB * 1024 * 1024) return 'El archivo supera el máximo de ' + MAX_MB + ' MB.';
+  return '';
+}
+
+function pick(f){
+  clearMsg();
+  const err = checkFile(f);
+  if (err){ file.value = ''; fileName.textContent = ''; show(err, 'err'); return; }
+  fileName.textContent = 'Archivo seleccionado: ' + f.name;
+}
+
+['dragenter','dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); }));
+['dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
+drop.addEventListener('drop', e => {
+  if (e.dataTransfer.files.length){ file.files = e.dataTransfer.files; pick(file.files[0]); }
+});
+file.addEventListener('change', () => { if (file.files.length) pick(file.files[0]); });
+
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  clearMsg();
+
+  const nombre = $('nombre').value.trim();
+  if (!nombre) return show('Escribe tu nombre o el de tu empresa.', 'err');
+  if (!$('email').value.trim() || !$('email').checkValidity()) return show('Escribe un correo electrónico válido.', 'err');
+  const fileErr = checkFile(file.files[0]);
+  if (fileErr) return show(fileErr, 'err');
+  if (!$('priv').checked) return show('Para continuar, acepta la política de privacidad.', 'err');
+
+  // Si el campo trampa está relleno, es un bot: simulamos éxito sin enviar.
+  if ($('web').value){ form.reset(); fileName.textContent = ''; return show('Factura enviada.', 'ok'); }
+
+  if (ENDPOINT.startsWith('PEGA_AQUI')) return show('El formulario aún no está conectado. Inténtalo más tarde.', 'err');
+
+  const data = new FormData(form);
+  data.delete('web');
+  data.append('fecha', new Date().toISOString());
+
+  btn.disabled = true; btn.textContent = 'Enviando…';
+  try {
+    const res = await fetch(ENDPOINT, { method: 'POST', body: data });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    form.reset(); fileName.textContent = '';
+    show('Factura enviada, ' + nombre + '. Te contactaremos en el correo que nos has indicado.', 'ok');
+  } catch (err) {
+    show('No hemos podido enviar la factura. Inténtalo de nuevo en unos minutos.', 'err');
+  } finally {
+    btn.disabled = false; btn.textContent = 'Enviar factura';
+  }
+});
+</script>
+</body>
+</html>
