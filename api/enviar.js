@@ -9,6 +9,12 @@ export default async function handler(req, res) {
   if (!/\.pdf$/i.test(d.archivo.nombre || '') || d.archivo.contenido.length > 4.2e6)
     return res.status(400).json({ error: 'Archivo no válido' });
 
+  // Comprobación de las variables (el aviso sale en los Registros de Vercel, nunca la clave)
+  if (!process.env.RESEND_API_KEY || !process.env.EMAIL_DESTINO) {
+    console.error('Faltan variables de entorno: RESEND_API_KEY=' + !!process.env.RESEND_API_KEY + ' EMAIL_DESTINO=' + !!process.env.EMAIL_DESTINO);
+    return res.status(500).json({ error: 'Configuración incompleta' });
+  }
+
   const esc = s => String(s).replace(/[<>&]/g, '');
   const r = await fetch('https://api.resend.com/emails', {
     method: 'POST',
@@ -22,5 +28,8 @@ export default async function handler(req, res) {
       attachments: [{ filename: esc(d.archivo.nombre), content: d.archivo.contenido }]
     })
   });
-  return r.ok ? res.status(200).json({ ok: true }) : res.status(502).json({ error: 'Error de envío' });
+  if (r.ok) return res.status(200).json({ ok: true });
+  const detalle = await r.text();
+  console.error('Resend respondió ' + r.status + ': ' + detalle.slice(0, 500));   // aquí verás el motivo real
+  return res.status(502).json({ error: 'Error de envío' });
 }
