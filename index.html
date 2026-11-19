@@ -3,75 +3,103 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>WI WI Energía · Ahorra en tu factura de la luz</title>
+<title>WI WI Energía · Ahorra en la factura de luz de tu negocio</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--lima:#7CFC00;--fondo:#0d1117;--tarjeta:rgba(22,27,34,.72);--borde:#30363d;--texto:#f0f6fc;--gris:#9198a1;--azul:#4493f8;--violeta:#8534f3}
+:root{--fondo:#f4f7f0;--tarjeta:#ffffff;--borde:#dbe3d3;--texto:#0f1a12;--gris:#4a5a4f;--campo:#ffffff;--chip:#ffffff;--caja:#f7faf3;--op:#ffffff;--op-h:#eefadb;--acento:#7CFC00;--ac-texto:#0b1a0b;--icono:#2f8f00;--naranja:#e85d00;--enlace:#1d6fdc;--sombra:0 18px 50px rgba(30,60,15,.12);--sombra-boton:0 6px 18px rgba(80,170,0,.35);--sombra-logo:0 6px 24px rgba(60,120,0,.25);--glow-naranja:none}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(900px 500px at 85% -10%,rgba(124,252,0,.22),transparent 70%),radial-gradient(700px 420px at 0% 0%,rgba(255,106,0,.08),transparent 70%)}
+.chips li{box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.paso,details{box-shadow:0 1px 3px rgba(30,60,15,.06)}
+
 *{box-sizing:border-box}
-body{margin:0;background:var(--fondo);color:var(--texto);font:16px/1.5 Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;position:relative;overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
-  background:radial-gradient(620px 420px at 12% -5%,rgba(133,52,243,.42),transparent 70%),
-             radial-gradient(720px 460px at 88% 0%,rgba(68,147,248,.32),transparent 70%),
-             radial-gradient(520px 320px at 50% -8%,rgba(124,252,0,.16),transparent 70%)}
-main{max-width:1080px;margin:0 auto;padding:22px 20px 16px;display:grid;grid-template-columns:1.05fr .95fr;gap:20px 44px;align-items:start}
-.cabecera{grid-column:1;grid-row:1;display:flex;justify-content:flex-end}
-.marca{display:flex;flex-direction:column;align-items:center;gap:12px}
-.cabecera .etiqueta{margin:0}
-.titular{grid-column:1;grid-row:2}
-.video{grid-column:1;grid-row:3}
-form{grid-column:2;grid-row:1/4}
-.cabecera img{display:block;width:clamp(150px,22vw,290px);height:auto;border-radius:22px;box-shadow:0 0 0 1px rgba(255,255,255,.12),0 10px 50px rgba(124,252,0,.28)}
-.etiqueta{display:inline-block;border:1px solid var(--borde);background:rgba(255,255,255,.04);color:var(--gris);border-radius:999px;padding:4px 12px;font-size:13px;font-weight:600;margin-bottom:12px}
-h1{font-size:clamp(30px,4.6vw,50px);line-height:1.08;letter-spacing:-.025em;font-weight:800;margin:0 0 12px}
-h1 span{color:#ff6a00;text-shadow:0 0 30px rgba(255,106,0,.45)}
-.sub{color:var(--gris);font-size:17px;margin:0;max-width:34em}
-.video{aspect-ratio:16/9;max-height:125px;width:100%;border:1px dashed var(--borde);background:var(--tarjeta);border-radius:16px;display:grid;place-items:center;color:var(--gris);text-align:center;padding:12px;font-size:14px}
-form{background:var(--tarjeta);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--borde);border-radius:20px;padding:22px 24px;box-shadow:0 20px 60px rgba(0,0,0,.45)}
-h2{font-size:22px;letter-spacing:-.01em;margin:0 0 12px}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--fondo);color:var(--texto);font:16px/1.55 Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;overflow-x:hidden}
+a{color:var(--enlace)}
+.pagina{max-width:1240px;margin:0 auto;padding:28px 28px 8px;display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:22px 56px;align-items:start}
+.marca{grid-column:1;display:flex;align-items:center;gap:18px}
+.marca img{display:block;width:clamp(96px,9vw,132px);height:auto;border-radius:22px;box-shadow:var(--sombra-logo)}
+.etiqueta{display:inline-block;border:1px solid var(--borde);background:var(--chip);color:var(--gris);border-radius:999px;padding:5px 14px;font-size:13px;font-weight:600}
+.titular{grid-column:1}
+h1{font-size:clamp(30px,3.5vw,46px);line-height:1.07;letter-spacing:-.028em;font-weight:800;margin:0 0 14px}
+h1 span{color:var(--naranja);text-shadow:var(--glow-naranja)}
+.sub{color:var(--gris);font-size:18px;margin:0 0 16px;max-width:36em}
+.chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.chips li{display:flex;align-items:center;gap:7px;font-size:14px;font-weight:600;color:var(--texto);background:var(--chip);border:1px solid var(--borde);border-radius:999px;padding:6px 13px}
+.chips li::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--acento);box-shadow:0 0 10px var(--acento)}
+.video{grid-column:1;aspect-ratio:16/9;width:100%;border:1px dashed var(--borde);background:var(--tarjeta);border-radius:20px;display:grid;place-items:center;color:var(--gris);text-align:center;padding:16px;font-size:15px}
+.pasos{grid-column:1;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.paso{background:var(--tarjeta);border:1px solid var(--borde);border-radius:18px;padding:16px 16px 14px}
+.paso b{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--acento);color:var(--ac-texto);font-weight:800;margin-bottom:8px}
+.paso h3{font-size:16px;margin:0 0 4px}
+.paso p{font-size:14px;color:var(--gris);margin:0}
+.faq{grid-column:1}
+.faq h2{font-size:20px;margin:6px 0 8px}
+details{background:var(--tarjeta);border:1px solid var(--borde);border-radius:14px;padding:12px 16px;margin-bottom:8px}
+summary{cursor:pointer;font-weight:700}
+details p{margin:8px 0 0;color:var(--gris);font-size:15px}
+form{grid-column:2;grid-row:1/7;position:sticky;top:18px;background:var(--tarjeta);border:1px solid var(--borde);border-radius:22px;padding:24px 26px;box-shadow:var(--sombra)}
+h2{font-size:23px;letter-spacing:-.01em;margin:0 0 4px}
+.nota{margin:0 0 12px;color:var(--gris);font-size:14px}
+.asesor{display:inline-block;margin:0 0 10px;font-size:13px;font-weight:700;color:var(--ac-texto);background:var(--acento);border-radius:999px;padding:3px 12px}
 .fila{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
-label{display:block;font-weight:600;font-size:13px;color:var(--gris);margin:9px 0 4px}
-input,select{width:100%;padding:8px 11px;font:inherit;font-size:15px;color:var(--texto);background:#0d1117;border:1px solid var(--borde);border-radius:10px}
-input:focus,select:focus,button:focus-visible{outline:2px solid var(--azul);outline-offset:1px;border-color:var(--azul)}
-.check{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:12.5px;line-height:1.45;color:var(--gris);margin-top:13px}
-.check input{width:auto;margin-top:3px;accent-color:var(--lima)}
-a{color:var(--azul)}
-button{margin-top:14px;width:100%;background:var(--lima);color:#0d1117;border:0;border-radius:999px;padding:14px;font:700 17px Inter,system-ui,Arial,sans-serif;cursor:pointer;box-shadow:0 0 30px rgba(124,252,0,.25);transition:transform .15s,box-shadow .15s}
-button:hover{transform:translateY(-1px);box-shadow:0 0 38px rgba(124,252,0,.4)}
+label{display:block;font-weight:600;font-size:13px;color:var(--gris);margin:10px 0 4px}
+input,select{width:100%;padding:10px 12px;font:inherit;font-size:15px;color:var(--texto);background:var(--campo);border:1px solid var(--borde);border-radius:11px}
+input:focus,select:focus,button:focus-visible{outline:2px solid var(--enlace);outline-offset:1px}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:12.5px;line-height:1.45;color:var(--gris);margin-top:14px}
+.check input{width:auto;margin-top:3px;accent-color:var(--icono)}
+button{margin-top:14px;width:100%;background:var(--acento);color:var(--ac-texto);border:0;border-radius:999px;padding:15px;font:800 17px Inter,system-ui,Arial,sans-serif;cursor:pointer;box-shadow:var(--sombra-boton);transition:transform .15s}
+button:hover{transform:translateY(-1px)}
 button:disabled{opacity:.6;cursor:wait}
-#msg{margin:12px 0 0;font-weight:600}
+#msg{margin:12px 0 0;font-weight:700}
 .hp{position:absolute;left:-9999px}
-.caja-factura{border:1px solid var(--borde);background:rgba(255,255,255,.03);border-radius:16px;padding:14px;text-align:center}
-.caja-factura .titulo{font-weight:700;font-size:17px;margin:0}
-.caja-factura .max{margin:0 0 12px;color:var(--gris);font-size:13px}
+.caja-factura{border:1px solid var(--borde);background:var(--caja);border-radius:16px;padding:14px;text-align:center}
+.caja-factura .titulo{font-weight:800;font-size:17px;margin:0}
+.caja-factura .max{margin:0 0 12px;color:var(--gris);font-size:13.5px}
 .botones{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-@media(max-width:420px){.botones{grid-template-columns:1fr}}
-.op{margin:0;width:100%;display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px;background:#161b22;color:var(--texto);border:1px solid var(--borde);border-radius:14px;font:600 15px Inter,system-ui,Arial,sans-serif;box-shadow:none}
-.op:hover{border-color:var(--lima);background:#1b222b;box-shadow:0 0 24px rgba(124,252,0,.18)}
-.op svg{width:36px;height:36px;stroke:var(--lima);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-#fotos{font-weight:600;font-size:13px;color:var(--lima);margin:10px 0 0}
-.quitar{margin:8px 0 0;width:auto;padding:6px 16px;background:transparent;color:var(--gris);border:1px solid var(--borde);border-radius:999px;font-size:13px;font-weight:600;box-shadow:none}
-.quitar:hover{color:var(--texto);box-shadow:none}
-.legal{max-width:1080px;margin:8px auto 40px;padding:16px 20px 0;font-size:11.5px;line-height:1.55;color:var(--gris);border-top:1px solid var(--borde)}
-.legal strong{color:#c9d1d9}
-@media(max-width:800px){
-  main{grid-template-columns:1fr;gap:16px;padding-top:20px}
-  .cabecera,.titular,.video,form{grid-column:1;grid-row:auto}
-  .titular{order:2}form{order:3}.video{order:4}
-  .cabecera img{width:130px}
+.op{margin:0;width:100%;display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 6px;background:var(--op);color:var(--texto);border:1px solid var(--borde);border-radius:14px;font:700 15px Inter,system-ui,Arial,sans-serif;box-shadow:none}
+.op:hover{border-color:var(--icono);background:var(--op-h);transform:none}
+.op svg{width:34px;height:34px;stroke:var(--icono);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+#fotos{font-weight:700;font-size:13px;color:var(--icono);margin:10px 0 0}
+.quitar{margin:8px 0 0;width:auto;padding:6px 16px;background:transparent;color:var(--gris);border:1px solid var(--borde);border-radius:999px;font-size:13px;font-weight:700;box-shadow:none}
+.legal{max-width:1240px;margin:26px auto 40px;padding:16px 28px 0;font-size:11.5px;line-height:1.6;color:var(--gris);border-top:1px solid var(--borde)}
+.legal strong{color:var(--texto)}
+@media(max-width:900px){
+  .pagina{grid-template-columns:1fr;gap:16px;padding:18px 18px 4px}
+  .marca,.titular,.video,.pasos,.faq,form{grid-column:1;grid-row:auto}
+  .marca{order:1}.titular{order:2}form{order:3;position:static;padding:20px 18px}.video{order:4}.pasos{order:5}.faq{order:6}
+  .pasos{grid-template-columns:1fr}
   .fila{grid-template-columns:1fr}
+  .legal{padding:16px 18px 0}
 }
+@media(max-width:340px){.botones{grid-template-columns:1fr}}
+@media(max-width:430px){.op{font-size:14px;padding:14px 4px}.op svg{width:30px;height:30px}}
 </style>
 </head>
 <body>
-<main>
-  <div class="cabecera"><div class="marca"><img src="logo-wiwi.png" alt="WI WI Energía" width="180" height="180"><span class="etiqueta">Respuesta en 24-48 horas</span></div></div>
+<main class="pagina">
+  <div class="marca"><img src="logo-wiwi.png" alt="WI WI Energía" width="180" height="180"><span class="etiqueta">Respuesta en 24-48 horas</span></div>
   <section class="titular">
-    <h1>Compara tu factura de la luz con <span>más de 50 comercializadoras</span></h1>
-    <p class="sub">Sube tu factura en PDF o hazle una foto y te enviamos las mejores ofertas.</p>
+    <h1>Compara la factura de luz de tu negocio con <span>más de 50 comercializadoras</span></h1>
+    <p class="sub">Autónomos, comercios, pymes y también particulares. Sube tu última factura y te enviamos las mejores ofertas.</p>
+    <ul class="chips"><li>Sin compromiso</li><li>Respuesta en 24-48 h</li><li>Datos protegidos</li></ul>
   </section>
   <div class="video">Aquí irá tu vídeo (sustituye este bloque por &lt;video&gt; o un enlace de YouTube)</div>
+  <section class="pasos" aria-label="Cómo funciona">
+    <div class="paso"><b>1</b><h3>Sube tu factura</h3><p>En PDF o con una foto desde el móvil.</p></div>
+    <div class="paso"><b>2</b><h3>La estudiamos</h3><p>Revisamos tu consumo y tu contrato actual.</p></div>
+    <div class="paso"><b>3</b><h3>Recibes ofertas</h3><p>En 24-48 horas. Decides tú.</p></div>
+  </section>
+  <section class="faq">
+    <h2>Preguntas frecuentes</h2>
+    <details><summary>¿Tengo que cambiar de compañía?</summary><p>No. Te enviamos las ofertas y eres tú quien decide si alguna te interesa.</p></details>
+    <details><summary>¿Qué hacéis con mi factura?</summary><p>La estudiamos para prepararte ofertas y solo se envía a las comercializadoras necesarias. Puedes ver todos los detalles en la información de protección de datos, al final de la página.</p></details>
+    <details><summary>¿Puedo enviar más de una factura?</summary><p>Sí. Si tienes varios locales o suministros, envía una factura de cada uno, repitiendo el formulario.</p></details>
+  </section>
   <form id="f">
     <h2>Envíanos tu factura</h2>
+    <p class="nota">Revisión sin compromiso.</p>
+    <span class="asesor" id="asesor" hidden>Asesor WIWI: <span id="asesorCod"></span></span>
     <div class="caja-factura">
       <p class="titulo">Factura de la luz en PDF</p>
       <p class="max">(máximo 3 MB)</p>
@@ -98,11 +126,11 @@ button:disabled{opacity:.6;cursor:wait}
     </div>
     <div class="fila">
       <div><label for="tel">Teléfono</label><input id="tel" type="tel" required></div>
-      <div><label for="tipo">Soy</label><select id="tipo"><option>Particular</option><option>Autónomo</option><option>Pyme</option><option>Gran empresa</option></select></div>
+      <div><label for="tipo">Soy</label><select id="tipo"><option>Autónomo</option><option>Pyme</option><option>Gran empresa</option><option>Particular</option></select></div>
     </div>
     <input class="hp" id="web" tabindex="-1" autocomplete="off" aria-hidden="true">
     <label class="check"><input type="checkbox" id="ok" required>
-      <span>He leído y acepto la <a href="#privacidad">información sobre protección de datos</a> y autorizo el envío de mi factura a comercializadoras para recibir ofertas.</span></label>
+      <span id="txtConsent">He leído y acepto la <a href="#privacidad">información sobre protección de datos</a> y autorizo el envío de mi factura a comercializadoras para recibir ofertas.</span></label>
     <button id="btn" type="submit">Enviar mi factura</button>
     <p id="msg" role="status"></p>
   </form>
@@ -122,6 +150,15 @@ button:disabled{opacity:.6;cursor:wait}
 const f=document.getElementById('f'),msg=document.getElementById('msg'),btn=document.getElementById('btn');
 const cam=document.getElementById('cam'),info=document.getElementById('fotos'),quitar=document.getElementById('quitarFotos');
 let fotos=[]; // cada foto se guarda ya reducida (JPEG)
+// Código de comercial: viene en el enlace (?c=ana) y se guarda mientras dure la visita
+let comercial='';
+try{comercial=(new URLSearchParams(location.search).get('c')||sessionStorage.getItem('c')||'').toLowerCase().replace(/[^a-z0-9_-]/g,'').slice(0,30);
+  if(comercial)sessionStorage.setItem('c',comercial)}catch{}
+if(comercial){
+  document.getElementById('asesor').hidden=false;
+  document.getElementById('asesorCod').textContent=comercial;
+  document.getElementById('txtConsent').innerHTML='El titular de la factura ha leído y acepta la <a href="#privacidad">información sobre protección de datos</a> y autoriza el envío de su factura a comercializadoras para recibir ofertas.';
+}
 
 function reducir(file){return new Promise((ok,ko)=>{
   const img=new Image(),url=URL.createObjectURL(file);
@@ -172,7 +209,7 @@ f.addEventListener('submit',async e=>{
   btn.disabled=true;msg.textContent='Enviando…';
   try{
     const res=await fetch('/api/enviar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-      nombre:nombre.value,email:email.value,tel:tel.value,tipo:tipo.value,consentimiento:ok.checked,web:web.value,
+      nombre:nombre.value,email:email.value,tel:tel.value,tipo:tipo.value,consentimiento:ok.checked,web:web.value,comercial:comercial,
       archivo:{nombre:nombreArchivo,contenido:b64}})});
     if(!res.ok)throw new Error();
     f.reset();fotos=[];pintarFotos();msg.textContent='Factura recibida. Te contestaremos en 24-48 horas.';
