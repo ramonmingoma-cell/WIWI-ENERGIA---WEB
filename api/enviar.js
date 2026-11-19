@@ -16,6 +16,7 @@ export default async function handler(req, res) {
   }
 
   const esc = s => String(s).replace(/[<>&]/g, '');
+  const com = String(d.comercial || '').toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 30);   // código del comercial (?c=ana)
   const r = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
@@ -23,8 +24,8 @@ export default async function handler(req, res) {
       from: 'WIWI Energía <onboarding@resend.dev>',   // cámbialo al verificar tu dominio
       to: [process.env.EMAIL_DESTINO],
       reply_to: d.email,
-      subject: `Nueva factura: ${esc(d.nombre)} (${esc(d.tipo)})`,
-      html: `<p><b>${esc(d.nombre)}</b> (${esc(d.tipo)})<br>${esc(d.email)} · ${esc(d.tel)}</p><p>Consentimiento aceptado: sí</p>`,
+      subject: `Nueva factura: ${esc(d.nombre)} (${esc(d.tipo)})` + (com ? ` [${com}]` : ''),
+      html: `<p>Nombre: ${esc(d.nombre)}<br>Tipo: ${esc(d.tipo)}<br>Correo: ${esc(d.email)}<br>Teléfono: ${esc(d.tel)}<br>Comercial: ${com || 'directo'}</p><p>Consentimiento aceptado: sí</p>`,
       attachments: [{ filename: esc(d.archivo.nombre), content: d.archivo.contenido }]
     })
   });
