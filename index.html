@@ -43,7 +43,8 @@ button:disabled{opacity:.6;cursor:wait}
 .caja-factura{border:1px solid var(--borde);background:rgba(255,255,255,.03);border-radius:16px;padding:14px;text-align:center}
 .caja-factura .titulo{font-weight:700;font-size:17px;margin:0}
 .caja-factura .max{margin:0 0 12px;color:var(--gris);font-size:13px}
-.botones{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.botones{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:420px){.botones{grid-template-columns:1fr}}
 .op{margin:0;width:100%;display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px;background:#161b22;color:var(--texto);border:1px solid var(--borde);border-radius:14px;font:600 15px Inter,system-ui,Arial,sans-serif;box-shadow:none}
 .op:hover{border-color:var(--lima);background:#1b222b;box-shadow:0 0 24px rgba(124,252,0,.18)}
 .op svg{width:36px;height:36px;stroke:var(--lima);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
@@ -77,13 +78,17 @@ button:disabled{opacity:.6;cursor:wait}
       <div class="botones">
         <button type="button" class="op" id="subirArchivo">
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-          <span>Subir archivo</span></button>
+          <span>Subir PDF</span></button>
         <button type="button" class="op" id="hacerFoto">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg>
-          <span id="txtFoto">Hacer o subir foto</span></button>
+          <span id="txtFoto">Hacer foto</span></button>
+        <button type="button" class="op" id="galeria">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5-5-8 9"/></svg>
+          <span>Galería</span></button>
       </div>
       <input id="pdf" type="file" accept="application/pdf" hidden>
-      <input id="cam" type="file" accept="image/*" multiple hidden>
+      <input id="cam" type="file" accept="image/*" capture="environment" hidden>
+      <input id="gal" type="file" accept="image/*" multiple hidden>
       <p id="fotos" role="status"></p>
       <button type="button" class="quitar" id="quitarFotos" hidden>Quitar</button>
     </div>
@@ -129,17 +134,21 @@ function reducir(file){return new Promise((ok,ko)=>{
 const pdfIn=document.getElementById('pdf');
 function pintarFotos(){
   const arch=pdfIn.files[0];
-  info.textContent=fotos.length?('Páginas añadidas: '+fotos.length+'. Pulsa "Añadir otra página" si hay más.'):(arch?('Archivo: '+arch.name):'');
+  info.textContent=fotos.length?('Páginas añadidas: '+fotos.length+'. Pulsa "Otra foto" o "Galería" si hay más páginas.'):(arch?('Archivo: '+arch.name):'');
   quitar.hidden=!(fotos.length||arch);
-  document.getElementById('txtFoto').textContent=fotos.length?'Añadir otra página':'Hacer o subir foto';}
+  document.getElementById('txtFoto').textContent=fotos.length?'Otra foto':'Hacer foto';}
 document.getElementById('subirArchivo').onclick=()=>pdfIn.click();
+const gal=document.getElementById('gal');
 document.getElementById('hacerFoto').onclick=()=>cam.click();
+document.getElementById('galeria').onclick=()=>gal.click();
 pdfIn.onchange=()=>{if(pdfIn.files[0]){fotos=[];msg.textContent=''}pintarFotos()};
 quitar.onclick=()=>{fotos=[];pdfIn.value='';pintarFotos()};
-cam.onchange=async()=>{
-  const lista=Array.from(cam.files);cam.value='';if(!lista.length)return;
+async function anadir(inp){
+  const lista=Array.from(inp.files);inp.value='';if(!lista.length)return;
   try{for(const file of lista)fotos.push(await reducir(file));pdfIn.value='';msg.textContent='';pintarFotos()}
-  catch{msg.textContent='No se pudo leer la foto. Inténtalo de nuevo.';pintarFotos()}};
+  catch{msg.textContent='No se pudo leer la foto. Inténtalo de nuevo.';pintarFotos()}}
+cam.onchange=()=>anadir(cam);
+gal.onchange=()=>anadir(gal);
 
 function fotosAPdf(){
   const {jsPDF}=window.jspdf,doc=new jsPDF({unit:'mm',format:'a4'}),W=210,H=297;
