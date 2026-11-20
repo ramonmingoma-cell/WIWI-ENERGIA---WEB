@@ -18,7 +18,7 @@ body{margin:0;background:var(--fondo);color:var(--texto);font:16px/1.55 Inter,sy
 a{color:var(--enlace)}
 .pagina{max-width:1240px;margin:0 auto;padding:28px 28px 8px;display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:22px 56px;align-items:start}
 .marca{grid-column:1;display:flex;align-items:center;gap:18px}
-.marca img{display:block;width:clamp(96px,9vw,132px);height:auto;border-radius:22px;box-shadow:var(--sombra-logo)}
+.marca img{display:block;width:clamp(180px,18vw,264px);height:auto;border-radius:22px;box-shadow:var(--sombra-logo)}
 .etiqueta{display:inline-block;border:1px solid var(--borde);background:var(--chip);color:var(--gris);border-radius:999px;padding:5px 14px;font-size:13px;font-weight:600}
 .titular{grid-column:1}
 h1{font-size:clamp(30px,3.5vw,46px);line-height:1.07;letter-spacing:-.028em;font-weight:800;margin:0 0 14px}
@@ -78,7 +78,7 @@ button:disabled{opacity:.6;cursor:wait}
 </head>
 <body>
 <main class="pagina">
-  <div class="marca"><img src="logo-wiwi.png" alt="WI WI Energía" width="180" height="180"><span class="etiqueta">Respuesta en 24-48 horas</span></div>
+  <div class="marca"><img src="logo-wiwi.png" alt="WI WI Energía" width="180" height="180"></div>
   <section class="titular">
     <h1>Compara la factura de luz de tu negocio con <span>más de 50 comercializadoras</span></h1>
     <p class="sub">Autónomos, comercios, pymes y también particulares. Sube tu última factura y te enviamos las mejores ofertas.</p>
@@ -94,7 +94,7 @@ button:disabled{opacity:.6;cursor:wait}
     <h2>Preguntas frecuentes</h2>
     <details><summary>¿Tengo que cambiar de compañía?</summary><p>No. Te enviamos las ofertas y eres tú quien decide si alguna te interesa.</p></details>
     <details><summary>¿Qué hacéis con mi factura?</summary><p>La estudiamos para prepararte ofertas y solo se envía a las comercializadoras necesarias. Puedes ver todos los detalles en la información de protección de datos, al final de la página.</p></details>
-    <details><summary>¿Puedo enviar más de una factura?</summary><p>Sí. Si tienes varios locales o suministros, envía una factura de cada uno, repitiendo el formulario.</p></details>
+    <details><summary>¿Tengo que enviar una factura por cada local?</summary><p>Las facturas se estudian por punto de suministro (CUPS). Si tienes dos contadores o varios CUPS, envía una factura de cada uno, repitiendo el formulario. Si un mismo CUPS alimenta varios locales, con una factura es suficiente.</p></details>
   </section>
   <form id="f">
     <h2>Envíanos tu factura</h2>
